@@ -69,14 +69,14 @@ export class AppController {
     @UploadedFile()
     file: Express.Multer.File,
   ) {
-    const uploadDirectory = req.originalUrl;
-    const uploadPath = `${directory}/${uploadDirectory}/${file.originalname}`;
+    const uploadPath = `${directory}/${req.originalUrl}`;
+    const uploadDir = path.dirname(uploadPath);
 
-    if (await fs.pathExists(uploadDirectory)) {
+    if (await fs.pathExists(uploadDir)) {
       console.log('upload directory exists');
     } else {
       console.log('upload directory does not exist, creating...');
-      await fs.ensureDir(path.dirname(uploadPath));
+      await fs.ensureDir(uploadDir);
     }
 
     console.log(req.originalUrl);
