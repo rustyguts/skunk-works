@@ -17,7 +17,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 
-const directory = process.env.DIRECTORY || 'tmp';
+const directory = process.env.DIRECTORY || 'data';
 
 @Controller()
 export class AppController {
