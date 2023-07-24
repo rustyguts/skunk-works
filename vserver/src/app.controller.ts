@@ -16,15 +16,22 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { DIRECTORY } from './config';
+
+const directory = process.env.DIRECTORY || 'tmp';
 
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @Get('/health')
-  getHealth(): string {
-    return 'healthy!';
+  getHealth() {
+    return {
+      status: 'ok',
+      message: 'healthy!',
+      debug: {
+        directory,
+      },
+    };
   }
 
   @Get('*')
@@ -52,14 +59,18 @@ export class AppController {
   }
 
   @Post('*')
-  @UseInterceptors(FileInterceptor('file', { dest: `${DIRECTORY}/tmp` }))
+  @UseInterceptors(
+    FileInterceptor('file', {
+      dest: `${directory}/tmp`,
+    }),
+  )
   async uploadFile(
     @Req() req: Request,
     @UploadedFile()
     file: Express.Multer.File,
   ) {
     const uploadDirectory = req.originalUrl;
-    const uploadPath = `${DIRECTORY}/${uploadDirectory}/${file.originalname}`;
+    const uploadPath = `${directory}/${uploadDirectory}/${file.originalname}`;
 
     if (await fs.pathExists(uploadDirectory)) {
       console.log('upload directory exists');
