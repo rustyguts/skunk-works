@@ -17,7 +17,7 @@ import {
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 
-const directory = process.env.DIRECTORY || 'data';
+const directory = process.env.DIRECTORY || '/data';
 
 @Controller()
 export class AppController {
@@ -39,7 +39,7 @@ export class AppController {
     @Req() req: Request,
     @Res({ passthrough: true }) res: Response,
   ): StreamableFile | NotFoundException {
-    const filepath = this.appService.getFilepath(req.originalUrl);
+    const filepath = path.normalize(path.join(directory, req.originalUrl));
     const filename = path.basename(filepath);
     const mimeType = mime.getType(filepath);
 
