@@ -13,6 +13,9 @@ jobs:
   push_to_registry:
     name: Push Docker image to Docker Hub
     runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: vserver
     steps:
       - name: Check out the repo
         uses: actions/checkout@v3
@@ -32,7 +35,6 @@ jobs:
 
       - name: Build and push Docker image
         uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
-        working-directory: vserver
         with:
           context: .
           push: true
