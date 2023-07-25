@@ -4,14 +4,11 @@ WORKDIR /app
 
 COPY package.json yarn.lock ./
 
-RUN yarn
+RUN yarn --frozen-lockfile
 
 COPY . .
 
 RUN yarn build
-
-# Add sentry:sourcemaps
-# Add SENTRY_AUTH_TOKEN to .env
 
 EXPOSE 3000
 

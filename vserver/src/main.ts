@@ -6,7 +6,7 @@ import * as Sentry from '@sentry/node';
 
 import { AppModule } from './app.module';
 import { NestFactory } from '@nestjs/core';
-import { ProfilingIntegration } from '@sentry/profiling-node';
+// import { ProfilingIntegration } from '@sentry/profiling-node';
 import { ErrorRequestHandler, RequestHandler } from 'express';
 
 async function bootstrap() {
@@ -19,7 +19,7 @@ async function bootstrap() {
     profilesSampleRate: 1.0,
     integrations: [
       new Sentry.Integrations.Http({ tracing: true }),
-      new ProfilingIntegration(),
+      // new ProfilingIntegration(),
     ],
   });
 
