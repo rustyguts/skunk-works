@@ -10,6 +10,9 @@ COPY . .
 
 RUN yarn build
 
+# Add sentry:sourcemaps
+# Add SENTRY_AUTH_TOKEN to .env
+
 EXPOSE 3000
 
-CMD ["yarn", "start"]
+CMD ["node", "--max-old-space-size=1500", "dist/main.js"]
