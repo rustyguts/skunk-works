@@ -49,7 +49,6 @@ export class AppController {
       throw new NotFoundException(`${filepath} not found`);
     }
 
-    console.log({ filepath, filename, mimeType });
     const file = fs.createReadStream(filepath);
 
     res.set({
