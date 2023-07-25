@@ -1,3 +1,4 @@
+import * as morgan from 'morgan';
 import * as dotenv from 'dotenv';
 dotenv.config();
 
@@ -6,6 +7,7 @@ import { AppModule } from './app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.use(morgan('combined'));
   await app.listen(5000);
 }
 bootstrap();

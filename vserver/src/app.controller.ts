@@ -73,15 +73,13 @@ export class AppController {
     const uploadDir = path.dirname(uploadPath);
 
     if (await fs.pathExists(uploadDir)) {
-      console.log('upload directory exists');
     } else {
-      console.log('upload directory does not exist, creating...');
+      console.log(`creating directory ${uploadDir}`);
       await fs.ensureDir(uploadDir);
     }
 
-    console.log(req.originalUrl);
-    console.log(file);
-
+    console.log(`moving tmp file ${file.path} to ${uploadPath}`);
     await fs.move(file.path, uploadPath);
+    gc();
   }
 }
