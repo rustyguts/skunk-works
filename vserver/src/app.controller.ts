@@ -80,6 +80,6 @@ export class AppController {
     }
 
     console.log(`moving tmp file ${file.path} to ${uploadPath}`);
-    await fs.move(file.path, uploadPath);
+    await fs.move(file.path, uploadPath, { overwrite: true });
   }
 }
