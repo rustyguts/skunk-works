@@ -16,9 +16,11 @@ import {
   UseInterceptors,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
+import { SentryInterceptor } from './sentry.interceptor';
 
 const directory = process.env.DIRECTORY || '/data';
 
+@UseInterceptors(SentryInterceptor)
 @Controller()
 export class AppController {
   constructor(private readonly appService: AppService) {}
@@ -44,7 +46,7 @@ export class AppController {
     const mimeType = mime.getType(filepath);
 
     if (!fs.existsSync(filepath)) {
-      return new NotFoundException(`${filepath} not found`);
+      throw new NotFoundException(`${filepath} not found`);
     }
 
     console.log({ filepath, filename, mimeType });
