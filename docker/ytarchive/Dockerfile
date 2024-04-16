@@ -17,4 +17,5 @@ RUN curl -LO https://github.com/BtbN/FFmpeg-Builds/releases/download/latest/ffmp
     mv ffmpeg-n7.0-latest-linux64-gpl-7.0/bin/ffmpeg /usr/local/bin/ && \
     rm -rf ffmpeg-n7.0-latest-linux64-gpl-7.0
 
-ENTRYPOINT ["ytarchive"]
+COPY ./entrypoint.sh /entrypoint.sh
+ENTRYPOINT ["/entrypoint.sh"]
