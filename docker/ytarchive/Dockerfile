@@ -1,5 +1,7 @@
 FROM alpine:latest
 
+WORKDIR /app
+
 RUN apk add --no-cache wget ffmpeg unzip
 
 RUN wget https://github.com/Kethsar/ytarchive/releases/download/v0.4.0/ytarchive_linux_amd64.zip && \
